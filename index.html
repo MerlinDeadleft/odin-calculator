@@ -9,38 +9,42 @@
 <body>
     <main>
         <div class="calculator-container">
+            <div class="display-container">
+                <p class="display-text">-12345678901</p>
+            </div>
+
             <div class="buttons-container">
                 <div class="buttons-row">
-                    <button class="button clear">Clear</button>
-                    <button class="button operator">÷</button>
+                    <button id="clear" class="button clear">Clear</button>
+                    <button id="divide" class="button operator">÷</button>
                 </div>
 
                 <div class="buttons-row">
-                    <button class="button">7</button>
-                    <button class="button">8</button>
-                    <button class="button">9</button>
-                    <button class="button operator">&#xD7</button> <!-- &#xD7 = × (multiplication sign. VS Code show ambiguity warning with x if pasted directly)-->
+                    <button id="7" class="button">7</button>
+                    <button id="8" class="button">8</button>
+                    <button id="9" class="button">9</button>
+                    <button id="multiply" class="button operator">&#xD7</button> <!-- &#xD7 = × (multiplication sign. VS Code show ambiguity warning with x if pasted directly)-->
                 </div>
 
                 <div class="buttons-row">
-                    <button class="button">4</button>
-                    <button class="button">5</button>
-                    <button class="button">6</button>
-                    <button class="button operator">&#x2212</button> <!-- &#x2212 = − (minus sign. VS Code show ambiguity warning with - (dash) if pasted directly)-->
+                    <button id="4" class="button">4</button>
+                    <button id="5" class="button">5</button>
+                    <button id="6" class="button">6</button>
+                    <button id="subtract" class="button operator">&#x2212</button> <!-- &#x2212 = − (minus sign. VS Code show ambiguity warning with - (dash) if pasted directly)-->
                 </div>
 
                 <div class="buttons-row">
-                    <button class="button">1</button>
-                    <button class="button">2</button>
-                    <button class="button">3</button>
-                    <button class="button operator">+</button>
+                    <button id="1" class="button">1</button>
+                    <button id="2" class="button">2</button>
+                    <button id="3" class="button">3</button>
+                    <button id="add" class="button operator">+</button>
                 </div>
 
                 <div class="buttons-row">
-                    <button class="button">±</button>
-                    <button class="button">0</button>
-                    <button class="button">,</button>
-                    <button class="button operator">=</button>
+                    <button id="negate" class="button">±</button>
+                    <button id="0" class="button">0</button>
+                    <button id="comma" class="button">,</button>
+                    <button id="equal" class="button operator">=</button>
                 </div>
             </div>
         </div>

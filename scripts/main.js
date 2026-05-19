@@ -68,7 +68,7 @@ function typeNumber(number) {
         clear();
     }
 
-    if(display.textContent.replace(/[-.]?/, "").length == MAX_CHAR_COUNT) {
+    if(display.textContent.replace(/[-.]?/, "").length == MAX_CHAR_COUNT && (operator === null || operand2 !== null)) {
         return;
     }
 

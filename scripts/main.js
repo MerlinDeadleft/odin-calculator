@@ -127,7 +127,7 @@ function operate() {
             result = parseFloat(operand1) * parseFloat(operand2);
             break;
         case "divide":
-            if(operand2 === 0) {
+            if(operand2 == 0) {
                 result = "ERR";
                 break;
             }
@@ -138,8 +138,9 @@ function operate() {
     operand1 = result.toString();
     let length = operand1.replace(/[-.]?/, "").length;
     if(operand1.replace(/[-.]?/, "").length > MAX_CHAR_COUNT) {
-        let replaced = operand1.replace(/[^-.]/g, "");
-        let occurences = replaced.length; //make sure negative sign and decimal point are not included in count when slicing
+        //Make sure negative sign and decimal point are not included in count when slicing.
+        //Negative sign has its own reserved position and decimal point has no width in used font
+        let occurences = operand1.replace(/[^-.]/g, "").length;
         operand1 = operand1.slice(0, MAX_CHAR_COUNT + occurences);
     }
 

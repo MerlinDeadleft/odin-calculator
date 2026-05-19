@@ -15,7 +15,7 @@ buttonsContainer.addEventListener("click", handleButtonCliked);
 
 //functions
 function updateDisplay(displayText) {
-    if(displayText.length > 1 && displayText[0] == 0) {
+    if(displayText.length > 1 && displayText[0] === "0" && displayText[1] !== ".") {
         displayText = displayText.slice(1);
     }
     display.textContent = displayText;
@@ -48,6 +48,7 @@ function handleButtonCliked(clickEvent) {
             operate();
             break;
         case "decimal":
+            typeDecimal();
             break;
         case "negate":
             negate();
@@ -82,6 +83,31 @@ function typeNumber(number) {
         updateDisplay(operand2);
     }
 
+}
+
+function typeDecimal() {
+    if(display.textContent.includes('.')  && (operator === null || operand2 !== null)) {
+        return;
+    }
+
+    if(nextNumberInputClears) {
+        clear();
+    }
+
+    if(display.textContent.replace(/[-.]?/, "").length == MAX_CHAR_COUNT && (operator === null || operand2 !== null)) {
+        //can't enter any more digits so decimal point should not show up now
+        return;
+    }
+
+    if(operator === null) {
+        operand1 ??= "0";
+        operand1 += ".";
+        updateDisplay(operand1);
+    } else {
+        operand2 ??= "0";
+        operand2 += ".";
+        updateDisplay(operand2);
+    }
 }
 
 function negate() {

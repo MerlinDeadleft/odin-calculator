@@ -6,15 +6,15 @@ const display = document.querySelector(".display-text");
 let operand1 = null;
 let operand2 = null;
 let operator = null;
-let displayText = "0";
+let nextNumberInputClears = false;
 
 //main
 
-updateDisplay();
+updateDisplay("0");
 buttonsContainer.addEventListener("click", handleButtonCliked);
 
 //functions
-function updateDisplay() {
+function updateDisplay(displayText) {
     if(displayText.length > 1 && displayText[0] == 0) {
         displayText = displayText.slice(1);
     }
@@ -39,14 +39,13 @@ function handleButtonCliked(clickEvent) {
             typeNumber(clickEvent.target.id);
             break;
         case "add":
-            break;
         case "subtract":
-            break;
         case "multiply":
-            break;
         case "divide":
+            typeOperator(clickEvent.target.id);
             break;
         case "equal":
+            operate();
             break;
         case "decimal":
             break;
@@ -60,38 +59,92 @@ function clear() {
     operand1 = null;
     operand2 = null;
     operator = null;
-    displayText = "0";
-    updateDisplay();
+    nextNumberInputClears = false;
+    updateDisplay("0");
 }
 
 function typeNumber(number) {
-    if(displayText.replace(/-?/, "").length == MAX_CHAR_COUNT) {
+    if(nextNumberInputClears) {
+        clear();
+    }
+
+    if(display.textContent.replace(/[-.]?/, "").length == MAX_CHAR_COUNT) {
         return;
     }
 
     if(operator === null) {
         operand1 ??= "";
         operand1 += number;
-        displayText = operand1;
+        updateDisplay(operand1);
     } else {
         operand2 ??= "";
         operand2 += number;
-        displayText = operand2
+        updateDisplay(operand2);
     }
 
-    updateDisplay();
 }
 
 function negate() {
     if(operator === null) {
         operand1 ??= "0";
         operand1 *= -1;
-        displayText = operand1.toString();
+        updateDisplay(operand1.toString());
     } else {
         operand2 ??= "0";
         operand2 *= -1;
-        displayText = operand2.toString();
+        updateDisplay(operand2.toString());
     }
 
-    updateDisplay();
+}
+
+function typeOperator(newOperator) {
+    if(operand2 !== null) {
+        operate();
+    }
+
+    if(nextNumberInputClears) {
+        nextNumberInputClears = false;
+    }
+
+    operator = newOperator;
+}
+
+function operate() {
+    if(operator === null || operand2 === null) {
+        return;
+    }
+
+    let result;
+
+    switch(operator) {
+        case "add":
+            result = parseFloat(operand1) + parseFloat(operand2);
+            break;
+        case "subtract":
+            result = parseFloat(operand1) - parseFloat(operand2);
+            break;
+        case "multiply":
+            result = parseFloat(operand1) * parseFloat(operand2);
+            break;
+        case "divide":
+            if(operand2 === 0) {
+                result = "ERR";
+                break;
+            }
+            result = parseFloat(operand1) / parseFloat(operand2);
+            break;
+    }
+
+    operand1 = result.toString();
+    let length = operand1.replace(/[-.]?/, "").length;
+    if(operand1.replace(/[-.]?/, "").length > MAX_CHAR_COUNT) {
+        let replaced = operand1.replace(/[^-.]/g, "");
+        let occurences = replaced.length; //make sure negative sign and decimal point are not included in count when slicing
+        operand1 = operand1.slice(0, MAX_CHAR_COUNT + occurences);
+    }
+
+    operand2 = null;
+    operator = null;
+    nextNumberInputClears = true;
+    updateDisplay(operand1);
 }

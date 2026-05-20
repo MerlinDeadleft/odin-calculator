@@ -12,6 +12,7 @@ let nextNumberInputClears = false;
 
 updateDisplay("0");
 buttonsContainer.addEventListener("click", handleButtonCliked);
+document.addEventListener("keydown", handleKeydown);
 
 //functions
 function updateDisplay(displayText) {
@@ -56,6 +57,51 @@ function handleButtonCliked(clickEvent) {
         case "backspace":
             deleteLastCharacter();
             break;
+    }
+}
+
+function handleKeydown(keyboardEvent) {
+    if(keyboardEvent.repeat) {
+        return;
+    }
+    
+    switch(keyboardEvent.key) {
+        case "0":
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+        case "5":
+        case "6":
+        case "7":
+        case "8":
+        case "9":
+            typeNumber(keyboardEvent.key);
+            break;
+        case "+":
+            typeOperator("add");
+            break;
+        case "-":
+            typeOperator("subtract");
+            break;
+        case "*":
+            typeOperator("multiply");
+            break;
+        case "/":
+            typeOperator("divide");
+            break;
+        case "Enter":
+            operate();
+            break;
+        case ",":
+        case ".":
+            typeDecimal();
+            break;
+        case "Backspace":
+            deleteLastCharacter();
+            break;
+        case "Escape":
+            clear();
     }
 }
 

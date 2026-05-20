@@ -23,10 +23,16 @@ document.addEventListener("keydown", handleKeydown);
 
 //functions
 function updateDisplay(displayText) {
-    if(displayText.length > 1 && displayText[0] === "0" && displayText[1] !== ".") {
-        displayText = displayText.slice(1);
-    }
+    displayText = removeLeadingZero(displayText);
     display.textContent = displayText;
+}
+
+function removeLeadingZero(text) {
+    if(text.length > 1 && text[0] === "0" && text[1] !== ".") {
+        text = text.slice(1);
+    }
+
+    return text;
 }
 
 function handleButtonCliked(clickEvent) {
@@ -293,7 +299,7 @@ function addHistoryEntry(operand1, operand2, operator, result) {
             operatorSymbol = "÷";
             break;
     }
-    historyEntry.textContent = `${operand1} ${operatorSymbol} ${operand2} = ${result}`;
+    historyEntry.textContent = `${removeLeadingZero(operand1)} ${operatorSymbol} ${removeLeadingZero(operand2)} = ${result}`;
     historyEntry.classList.add("history-entry");
     historyEntryContainer.appendChild(historyEntry);
 }

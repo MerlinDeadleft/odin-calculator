@@ -44,6 +44,7 @@ header h1 {
 
 main {
     display: flex;
+    gap: 10px;
 }
 
 .calculator-container {
@@ -140,12 +141,14 @@ main {
     margin: 20px 0;
     margin-right: auto;
     height: 726px;
+    border-radius: 10px;
 }
 
 .history-container h2 {
     background-color: hsl(132, 15%, 20%);
     border-bottom: 2px solid hsl(132, 15%, 10%);
     padding: 20px;
+    border-radius: 10px 10px 0 0;
 }
 
 #history-entry-container {

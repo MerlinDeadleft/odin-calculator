@@ -133,11 +133,12 @@ function typeOperator(newOperator) {
     if(operand2 !== null) {
         operate();
     }
-
+    
     if(nextNumberInputClears) {
         nextNumberInputClears = false;
     }
-
+    
+    operand1 ??= "0";
     operator = newOperator;
 }
 

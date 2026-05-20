@@ -53,6 +53,9 @@ function handleButtonCliked(clickEvent) {
         case "negate":
             negate();
             break;
+        case "backspace":
+            deleteLastCharacter();
+            break;
     }
 }
 
@@ -113,14 +116,13 @@ function typeDecimal() {
 function negate() {
     if(operator === null) {
         operand1 ??= "0";
-        operand1 *= -1;
+        operand1 = (operand1 * -1).toString();
         updateDisplay(operand1.toString());
     } else {
         operand2 ??= "0";
-        operand2 *= -1;
-        updateDisplay(operand2.toString());
+        operand2 = (operand2 * -1).toString();
+        updateDisplay(operand2);
     }
-
 }
 
 function typeOperator(newOperator) {
@@ -174,4 +176,28 @@ function operate() {
     operator = null;
     nextNumberInputClears = true;
     updateDisplay(operand1);
+}
+
+function deleteLastCharacter() {
+    if(operator === null) {
+        if(operand1 === null) {
+            return;
+        }
+        
+        operand1 = operand1.slice(0, operand1.length - 1);
+        if(operand1.length === 0) {
+            operand1 = "0";
+        }
+        updateDisplay(operand1);
+    } else {
+        if(operand2 === null) {
+            return;
+        }
+        
+        operand2 = operand2.slice(0, operand2.length - 1);
+        if(operand2.length === 0) {
+            operand2 = "0";
+        }
+        updateDisplay(operand2);
+    }
 }

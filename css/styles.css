@@ -65,7 +65,8 @@
     background-color: #325d81;
 }
 
-.clear:hover {
+.clear:hover,
+.backspace:hover {
     background-color: firebrick;
 }
 

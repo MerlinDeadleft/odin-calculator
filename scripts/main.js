@@ -72,7 +72,7 @@ function typeNumber(number) {
         clear();
     }
 
-    if(display.textContent.replace(/[-.]?/, "").length == MAX_CHAR_COUNT && (operator === null || operand2 !== null)) {
+    if(isDisplayingMaxCharacters()) {
         return;
     }
 
@@ -97,7 +97,7 @@ function typeDecimal() {
         clear();
     }
 
-    if(display.textContent.replace(/[-.]?/, "").length == MAX_CHAR_COUNT && (operator === null || operand2 !== null)) {
+    if(isDisplayingMaxCharacters()) {
         //can't enter any more digits so decimal point should not show up now
         return;
     }
@@ -111,6 +111,10 @@ function typeDecimal() {
         operand2 += ".";
         updateDisplay(operand2);
     }
+}
+
+function isDisplayingMaxCharacters() {
+    return display.textContent.replace(/[-.]?/, "").length >= MAX_CHAR_COUNT && (operator === null || operand2 !== null);
 }
 
 function negate() {
@@ -164,7 +168,6 @@ function operate() {
     }
 
     operand1 = result.toString();
-    let length = operand1.replace(/[-.]?/, "").length;
     if(operand1.replace(/[-.]?/, "").length > MAX_CHAR_COUNT) {
         //Make sure negative sign and decimal point are not included in count when slicing.
         //Negative sign has its own reserved position and decimal point has no width in used font

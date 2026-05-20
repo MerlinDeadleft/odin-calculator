@@ -48,7 +48,8 @@
     font-family: sans-serif;
 }
 
-.button:hover {
+.button:hover,
+.button.active {
     background-color: slategray;
     cursor: pointer;
 }
@@ -61,12 +62,15 @@
     background-color: #4682b4;
 }
 
-#equal:hover {
+#equal:hover,
+#equal.active {
     background-color: #325d81;
 }
 
 .clear:hover,
-.backspace:hover {
+.backspace:hover,
+.clear.active,
+.backspace.active {
     background-color: firebrick;
 }
 

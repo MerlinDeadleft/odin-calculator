@@ -3,6 +3,12 @@ const MAX_CHAR_COUNT = 11;
 const buttonsContainer = document.querySelector(".buttons-container");
 const display = document.querySelector(".display-text");
 
+const buttons = {};
+const queryResult = [...document.querySelectorAll(".buttons-container button")];
+for(const element of queryResult) {
+    buttons[element.id] = element;
+}
+
 let operand1 = null;
 let operand2 = null;
 let operator = null;
@@ -76,31 +82,40 @@ function handleKeydown(keyboardEvent) {
         case "7":
         case "8":
         case "9":
+            setButtonActive(keyboardEvent.key);
             typeNumber(keyboardEvent.key);
             break;
         case "+":
+            setButtonActive("add");
             typeOperator("add");
             break;
         case "-":
+            setButtonActive("subtract");
             typeOperator("subtract");
             break;
         case "*":
+            setButtonActive("multiply");
             typeOperator("multiply");
             break;
         case "/":
+            setButtonActive("divide");
             typeOperator("divide");
             break;
         case "Enter":
+            setButtonActive("equal");
             operate();
             break;
         case ",":
         case ".":
+            setButtonActive("decimal");
             typeDecimal();
             break;
         case "Backspace":
+            setButtonActive("backspace");
             deleteLastCharacter();
             break;
         case "Escape":
+            setButtonActive("clear");
             clear();
     }
 }
@@ -250,4 +265,10 @@ function deleteLastCharacter() {
         }
         updateDisplay(operand2);
     }
+}
+
+function setButtonActive(id) {
+    const button = buttons[id];
+    button.classList.add("active");
+    setTimeout(() => button.classList.remove("active"), 100);
 }

@@ -2,6 +2,7 @@ const MAX_CHAR_COUNT = 11;
 
 const buttonsContainer = document.querySelector(".buttons-container");
 const display = document.querySelector(".display-text");
+const historyEntryContainer = document.querySelector("#history-entry-container");
 
 const buttons = {};
 const queryResult = [...document.querySelectorAll(".buttons-container button")];
@@ -229,14 +230,16 @@ function operate() {
             break;
     }
 
-    operand1 = result.toString();
-    if(operand1.replace(/[-.]?/, "").length > MAX_CHAR_COUNT) {
+    result = result.toString();
+    if(result.replace(/[-.]?/, "").length > MAX_CHAR_COUNT) {
         //Make sure negative sign and decimal point are not included in count when slicing.
         //Negative sign has its own reserved position and decimal point has no width in used font
-        let occurences = operand1.replace(/[^-.]/g, "").length;
-        operand1 = operand1.slice(0, MAX_CHAR_COUNT + occurences);
+        let occurences = result.replace(/[^-.]/g, "").length;
+        result = result.slice(0, MAX_CHAR_COUNT + occurences);
     }
 
+    addHistoryEntry(operand1, operand2, operator, result);
+    operand1 = result;
     operand2 = null;
     operator = null;
     nextNumberInputClears = true;
@@ -271,4 +274,26 @@ function setButtonActive(id) {
     const button = buttons[id];
     button.classList.add("active");
     setTimeout(() => button.classList.remove("active"), 100);
+}
+
+function addHistoryEntry(operand1, operand2, operator, result) {
+    const historyEntry = document.createElement("div");
+    let operatorSymbol;
+    switch(operator) {
+        case "add":
+            operatorSymbol = "+";
+            break;
+        case "subtract":
+            operatorSymbol = "\u2212";
+            break;
+        case "multiply":
+            operatorSymbol = "\u00d7";
+            break;
+        case "divide":
+            operatorSymbol = "÷";
+            break;
+    }
+    historyEntry.textContent = `${operand1} ${operatorSymbol} ${operand2} = ${result}`;
+    historyEntry.classList.add("history-entry");
+    historyEntryContainer.appendChild(historyEntry);
 }

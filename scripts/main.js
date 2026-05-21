@@ -241,13 +241,11 @@ function operate() {
             break;
     }
 
-    result = result.toString();
-    if(result.replace(/[-.]?/g, "").length > MAX_CHAR_COUNT) {
-        //Make sure negative sign and decimal point are not included in count when slicing.
-        //Negative sign has its own reserved position and decimal point has no width in used font
-        let occurences = result.replace(/[^-.]/g, "").length;
-        result = result.slice(0, MAX_CHAR_COUNT + occurences);
+    if(result.toString().replace(/[-.]?/g, "").length > MAX_CHAR_COUNT) {
+        //convert number to exponential if too long for display
+        result = result.toExponential(3);
     }
+    result = result.toString();
 
     addHistoryEntry(operand1, operand2, operator, result);
     operand1 = result;

@@ -241,9 +241,14 @@ function operate() {
             break;
     }
 
+    /* fix floating point imprecision
+     * max precision for this case is 1e[MAX_CHAR_COUNT - 1] => 1e10
+     * MAX_CHAR_COUNT - 1 so that theoretically a 0 < |number| < 1 still fits on screen
+     */
+    result = Math.round(result * 1e10) / 1e10;
     if(result.toString().replace(/[-.]?/g, "").length > MAX_CHAR_COUNT) {
         //convert number to exponential if too long for display
-        result = result.toExponential(3);
+        result = result.toExponential(5);
     }
     result = result.toString();
 

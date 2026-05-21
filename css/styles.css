@@ -144,11 +144,33 @@ main {
     border-radius: 10px;
 }
 
-.history-container h2 {
+.history-header {
     background-color: hsl(132, 15%, 20%);
-    border-bottom: 2px solid hsl(132, 15%, 10%);
-    padding: 20px;
     border-radius: 10px 10px 0 0;
+    border-bottom: 2px solid hsl(132, 15%, 10%);
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.history-header > * {
+    padding: 20px 0;
+}
+
+.history-header h2 {
+    margin-left: 20px;
+}
+
+#clear-history {
+    width: 33%;
+    text-align: center;
+    align-content: center;
+    border-top-right-radius: 10px;
+    cursor: pointer;
+}
+
+#clear-history:hover {
+    background-color: hsl(132, 15%, 30%);
 }
 
 #history-entry-container {

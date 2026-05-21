@@ -3,6 +3,7 @@ const MAX_CHAR_COUNT = 11;
 const buttonsContainer = document.querySelector(".buttons-container");
 const display = document.querySelector(".display-text");
 const historyEntryContainer = document.querySelector("#history-entry-container");
+const clearHistoryButton = document.querySelector("#clear-history");
 
 const buttons = {};
 const queryResult = [...document.querySelectorAll(".buttons-container button")];
@@ -20,6 +21,7 @@ let nextNumberInputClears = false;
 updateDisplay("0");
 buttonsContainer.addEventListener("click", handleButtonCliked);
 document.addEventListener("keydown", handleKeydown);
+clearHistoryButton.addEventListener("click", handleClearHistoryClicked);
 
 //functions
 function updateDisplay(displayText) {
@@ -302,4 +304,8 @@ function addHistoryEntry(operand1, operand2, operator, result) {
     historyEntry.textContent = `${removeLeadingZero(operand1)} ${operatorSymbol} ${removeLeadingZero(operand2)} = ${result}`;
     historyEntry.classList.add("history-entry");
     historyEntryContainer.appendChild(historyEntry);
+}
+
+function handleClearHistoryClicked() {
+    historyEntryContainer.replaceChildren();
 }

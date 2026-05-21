@@ -149,10 +149,12 @@ function typeNumber(number) {
     if(operator === null) {
         operand1 ??= "";
         operand1 += number;
+        operand1 = removeLeadingZero(operand1);
         updateDisplay(operand1);
     } else {
         operand2 ??= "";
         operand2 += number;
+        operand2 = removeLeadingZero(operand2);
         updateDisplay(operand2);
     }
 

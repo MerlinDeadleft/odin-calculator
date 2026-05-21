@@ -186,7 +186,8 @@ function typeDecimal() {
 }
 
 function isDisplayingMaxCharacters() {
-    return display.textContent.replace(/[-.]?/, "").length >= MAX_CHAR_COUNT && (operator === null || operand2 !== null);
+    const replaced = display.textContent.replace(/[-.]?/g, "");
+    return replaced.length >= MAX_CHAR_COUNT && (operator === null || operand2 !== null);
 }
 
 function negate() {
@@ -241,7 +242,7 @@ function operate() {
     }
 
     result = result.toString();
-    if(result.replace(/[-.]?/, "").length > MAX_CHAR_COUNT) {
+    if(result.replace(/[-.]?/g, "").length > MAX_CHAR_COUNT) {
         //Make sure negative sign and decimal point are not included in count when slicing.
         //Negative sign has its own reserved position and decimal point has no width in used font
         let occurences = result.replace(/[^-.]/g, "").length;
